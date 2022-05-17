@@ -20,5 +20,7 @@ public:
 	void showSchedule();
 	bool setBook(int seatNum, string name);
 	bool cancelBook(int seatNum, string name);
+	void showScheduleEconomy();
+	void showScheduleNone();
 };
 #endif // !SCHEDULE_H

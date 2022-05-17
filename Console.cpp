@@ -16,7 +16,7 @@ int Console::select_service() {
 
 int Console::select_menu() {
 	int menu;
-	cout << "\n예약:1, 취소:2, 보기:3, 통계:4, 로그아웃:5>> ";
+	cout << "\n예약:1, 취소:2, 보기:3, 통계:4, 끝내기:5>> ";
 	cin >> menu;
 	return menu;
 }
@@ -37,6 +37,7 @@ string Console::loginPass() {
 
 int Console::select_seat() {
 	int seat;
+	cout << "\n예약/취소 하려는 좌석의 번호를 입력해주세요.";
 	cout << "\n좌석번호>> ";
 	cin >> seat;
 	return seat;
@@ -97,4 +98,11 @@ int Console::select_date() {
 		if (date > 1 || date < 7) return date;
 		else cout << "\n잘 못 입력하셨습니다.";
 	}
+}
+
+int Console::getBudget() {
+	int budget;
+	cout << "\n예산을 입력해주세요>> ";
+	cin >> budget;
+	return budget;
 }

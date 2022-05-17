@@ -29,6 +29,12 @@ class AirlineBook : public BookingSystem {
 	int departureDate;
 	int arrivalDate;
 	int seatNum;
+	int mileage;
+	int budget;
+	int economyTicketPrice;
+	int businessTicketPrice;
+		
+		
 public:
 	AirlineBook();
 	void book();

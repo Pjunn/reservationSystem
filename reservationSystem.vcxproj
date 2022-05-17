@@ -144,6 +144,7 @@
     <ClCompile Include="BookInterface.cpp" />
     <ClCompile Include="Console.cpp" />
     <ClCompile Include="Account.cpp" />
+    <ClCompile Include="Database.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Schedule.cpp" />
     <ClCompile Include="Seat.cpp" />
@@ -154,6 +155,7 @@
     <ClInclude Include="BookingSystem.h" />
     <ClInclude Include="BookInterface.h" />
     <ClInclude Include="Console.h" />
+    <ClInclude Include="Database.h" />
     <ClInclude Include="Schedule.h" />
     <ClInclude Include="Seat.h" />
   </ItemGroup>

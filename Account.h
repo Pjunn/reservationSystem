@@ -23,5 +23,8 @@ public:
 	void setPassword(string password);
 	bool isregistered();
 	string getName();
+	void addMileage();
+	void minusMileage();
+	int getMileage();
 };
 #endif // !ACCOUNT_H

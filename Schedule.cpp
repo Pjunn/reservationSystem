@@ -17,11 +17,33 @@ void Schedule::setscheduleName(int date, string scheduleName) {
 }
 
 void Schedule::showSchedule() {
+	cout << "\n현재 좌석 상황\n";
 	cout << this->date << this->scheduleName << ":";
 	for (int i = 0; i < 8; i++) {
 		cout << "\t" << seat[i].showName();
 	}
 	cout << "\n";
+}
+
+void Schedule::showScheduleEconomy() {
+	cout << this->date << this->scheduleName << ":";
+	for (int i = 0; i < 8; i++) {
+		if (i > 3) {
+			cout << "\t" << seat[i].showName();
+		}
+		else {
+			cout << "\t" << "xxx";
+		}
+	}
+	cout << "\n\n";
+}
+
+void Schedule::showScheduleNone() {
+	cout << this->date << this->scheduleName << ":";
+	for (int i = 0; i < 8; i++) {
+		cout << "\t" << "xxx";
+	}
+	cout << "\n\n";
 }
 
 bool Schedule::setBook(int seatNum, string name) {

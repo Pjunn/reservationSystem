@@ -16,6 +16,7 @@ public:
 	static int select_airport();
 	static int select_waytype();
 	static int select_date();
+	static int getBudget();
 
 	static int loginMenu();
 	static string registerName();

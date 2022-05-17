@@ -8,7 +8,7 @@ using namespace std;
 AirlineBook::AirlineBook() {
 	schedule = new Schedule***[7]; // 임의의 7일
 	for (int i = 0; i < 7; i++) {
-		schedule[i] = new Schedule ** [5]; // A~E의 5개 공항
+		schedule[i] = new Schedule ** [5]; // A~E의 5개 공항비즈니스
 		for (int j = 0; j < 5; j++) {
 			schedule[i][j] = new Schedule*[4]; // i번째 공항 제외한 4개 공항
 			for (int k = 0; k < 4; k++) {
@@ -20,10 +20,12 @@ AirlineBook::AirlineBook() {
 			}
 		}
 	}
-	
+	this->economyTicketPrice = 50000;
+	this->businessTicketPrice = 100000;
 }
 void AirlineBook::book() {
 	while (1) {
+		int flag = 1;
 		menu = Console::select_menu();
 		switch (menu) {
 		case 1: { // 예약
@@ -45,6 +47,20 @@ void AirlineBook::book() {
 				//갈때 시간
 				cout << "\n출발 시간를 선택해주세요.";
 				departureTime = Console::select_time(); // 마지막 0,1,2에 대응
+
+				cout << "\n좌석번호 1~4는 비즈니스 좌석, 5~8은 이코노미 좌석입니다.";
+				cout << "\n이코노미: " << economyTicketPrice * wayType << "원 비즈니스: " << businessTicketPrice * wayType << "원\n";
+				budget = Console::getBudget();
+				cout << "\n예산범위에 따른 예약가능 좌석은 ---로 표시됩니다.\n";
+				if (budget >= businessTicketPrice * wayType) {
+					schedule[departureDate - 1][departureAirport - 1][arrivalAirport - 1][departureTime - 1].showSchedule();
+				}
+				else if(budget >= economyTicketPrice * wayType) {
+					schedule[departureDate - 1][departureAirport - 1][arrivalAirport - 1][departureTime - 1].showScheduleEconomy();
+				}
+				else {
+					schedule[departureDate - 1][departureAirport - 1][arrivalAirport - 1][departureTime - 1].showScheduleNone();
+				}
 				// 이제 예약하자
 				while (1) {
 					// 좌석 현상태 보여주기
@@ -52,6 +68,8 @@ void AirlineBook::book() {
 					//갈때 좌석
 					seatNum = Console::select_seat();
 					if (schedule[departureDate - 1][departureAirport - 1][arrivalAirport - 1][departureTime - 1].setBook(seatNum, airlineAccount.getName())) {
+						airlineAccount.addMileage();
+						mileage = airlineAccount.getMileage();
 						break; // 빈자리에 예약하면 break
 					}
 				}
@@ -64,6 +82,21 @@ void AirlineBook::book() {
 				//갈때 시간
 				cout << "\n출발 시간를 선택해주세요.";
 				departureTime = Console::select_time(); // 마지막 0,1,2에 대응
+
+				cout << "\n좌석번호 1~4는 비즈니스 좌석, 5~8은 이코노미 좌석입니다.";
+				cout << "\n이코노미: " << economyTicketPrice * wayType << "원 비즈니스: " << businessTicketPrice * wayType << "원\n";
+				budget = Console::getBudget();
+				cout << "\n예산범위에 따른 예약가능 좌석은 ---로 표시됩니다.\n";
+				if (budget >= businessTicketPrice * wayType) {
+					schedule[departureDate - 1][departureAirport - 1][arrivalAirport - 1][departureTime - 1].showSchedule();
+				}
+				else if (budget >= economyTicketPrice * wayType) {
+					schedule[departureDate - 1][departureAirport - 1][arrivalAirport - 1][departureTime - 1].showScheduleEconomy();
+				}
+				else {
+					schedule[departureDate - 1][departureAirport - 1][arrivalAirport - 1][departureTime - 1].showScheduleNone();
+				}
+
 				// 이제 예약하자
 				while (1) {
 					// 좌석 현상태 보여주기
@@ -71,6 +104,8 @@ void AirlineBook::book() {
 					//갈때 좌석
 					seatNum = Console::select_seat();
 					if (schedule[departureDate - 1][departureAirport - 1][arrivalAirport - 1][departureTime - 1].setBook(seatNum, airlineAccount.getName())) {
+						airlineAccount.addMileage();
+						mileage = airlineAccount.getMileage();
 						break; // 빈자리에 예약하면 break
 					}
 				}
@@ -87,6 +122,21 @@ void AirlineBook::book() {
 				//올때 시간
 				cout << "\n돌아올 시간을 선택해주세요.";
 				arrivalTime = Console::select_time(); // 마지막 0,1,2에 대응
+
+				cout << "\n좌석번호 1~4는 비즈니스 좌석, 5~8은 이코노미 좌석입니다.";
+				cout << "\n이코노미: " << economyTicketPrice * wayType << "원 비즈니스: " << businessTicketPrice * wayType << "원\n";
+				budget = Console::getBudget();
+				cout << "\n예산범위에 따른 예약가능 좌석은 ---로 표시됩니다.\n";
+				if (budget >= businessTicketPrice * wayType) {
+					schedule[departureDate - 1][departureAirport - 1][arrivalAirport - 1][departureTime - 1].showSchedule();
+				}
+				else if (budget >= economyTicketPrice * wayType) {
+					schedule[departureDate - 1][departureAirport - 1][arrivalAirport - 1][departureTime - 1].showScheduleEconomy();
+				}
+				else {
+					schedule[departureDate - 1][departureAirport - 1][arrivalAirport - 1][departureTime - 1].showScheduleNone();
+				}
+
 				// 이제 예약하자
 				while (1) {
 					// 좌석 현상태 보여주기
@@ -94,6 +144,8 @@ void AirlineBook::book() {
 					//갈때 좌석
 					seatNum = Console::select_seat();
 					if (schedule[arrivalDate - 1][arrivalAirport - 1][departureAirport - 1][arrivalTime - 1].setBook(seatNum, airlineAccount.getName())) {
+						airlineAccount.addMileage();
+						mileage = airlineAccount.getMileage();
 						break; // 빈자리에 예약하면 break
 					}
 				}
@@ -128,6 +180,8 @@ void AirlineBook::book() {
 					//갈때 좌석
 					seatNum = Console::select_seat();
 					if (schedule[departureDate - 1][departureAirport - 1][arrivalAirport - 1][departureTime - 1].cancelBook(seatNum, airlineAccount.getName())) {
+						airlineAccount.minusMileage();
+						mileage = airlineAccount.getMileage();
 						break; // 알맞게 취소하면 break
 					}
 				}
@@ -147,7 +201,9 @@ void AirlineBook::book() {
 					//갈때 좌석
 					seatNum = Console::select_seat();
 					if (schedule[departureDate - 1][departureAirport - 1][arrivalAirport - 1][departureTime - 1].setBook(seatNum, airlineAccount.getName())) {
-						break; // 빈자리에 예약하면 break
+						airlineAccount.minusMileage();
+						mileage = airlineAccount.getMileage();
+						break; // 알맞게 취소하면 break
 					}
 				}
 				//올때 날짜
@@ -170,10 +226,13 @@ void AirlineBook::book() {
 					//갈때 좌석
 					seatNum = Console::select_seat();
 					if (schedule[arrivalDate - 1][arrivalAirport - 1][departureAirport - 1][arrivalTime - 1].cancelBook(seatNum, airlineAccount.getName())) {
+						airlineAccount.minusMileage();
+						mileage = airlineAccount.getMileage();
 						break; // 알맞게 취소하면 break
 					}
 				}
 			}
+			break;
 		}
 		case 3: { // 보기
 			cout << "\n출발 공항을 선택해주세요.";
@@ -195,15 +254,9 @@ void AirlineBook::book() {
 				cout << "\n출발 시간를 선택해주세요.";
 				departureTime = Console::select_time(); // 마지막 0,1,2에 대응
 				// 이제 예약하자
-				while (1) {
-					// 좌석 현상태 보여주기
-					schedule[departureDate - 1][departureAirport - 1][arrivalAirport - 1][departureTime - 1].showSchedule();
-					//갈때 좌석
-					seatNum = Console::select_seat();
-					if (schedule[departureDate - 1][departureAirport - 1][arrivalAirport - 1][departureTime - 1].cancelBook(seatNum, airlineAccount.getName())) {
-						break; // 알맞게 취소하면 break
-					}
-				}
+				// 좌석 현상태 보여주기
+				schedule[departureDate - 1][departureAirport - 1][arrivalAirport - 1][departureTime - 1].showSchedule();
+				
 
 			}
 			else { //왕복 wayType == 2
@@ -214,15 +267,9 @@ void AirlineBook::book() {
 				cout << "\n출발 시간를 선택해주세요.";
 				departureTime = Console::select_time(); // 마지막 0,1,2에 대응
 				// 이제 예약하자
-				while (1) {
-					// 좌석 현상태 보여주기
-					schedule[departureDate - 1][departureAirport - 1][arrivalAirport - 1][departureTime - 1].showSchedule();
-					//갈때 좌석
-					seatNum = Console::select_seat();
-					if (schedule[departureDate - 1][departureAirport - 1][arrivalAirport - 1][departureTime - 1].setBook(seatNum, airlineAccount.getName())) {
-						break; // 빈자리에 예약하면 break
-					}
-				}
+				// 좌석 현상태 보여주기
+				schedule[departureDate - 1][departureAirport - 1][arrivalAirport - 1][departureTime - 1].showSchedule();
+				
 				//올때 날짜
 				while (1) {
 					cout << "\n돌아올 일자를 선택해주세요.";
@@ -237,24 +284,26 @@ void AirlineBook::book() {
 				cout << "\n돌아올 시간을 선택해주세요.";
 				arrivalTime = Console::select_time(); // 마지막 0,1,2에 대응
 				// 이제 예약하자
-				while (1) {
-					// 좌석 현상태 보여주기
-					schedule[arrivalDate - 1][arrivalAirport - 1][departureAirport - 1][arrivalTime - 1].showSchedule();
-					//갈때 좌석
-					seatNum = Console::select_seat();
-					if (schedule[arrivalDate - 1][arrivalAirport - 1][departureAirport - 1][arrivalTime - 1].cancelBook(seatNum, airlineAccount.getName())) {
-						break; // 알맞게 취소하면 break
-					}
-				}
+				// 좌석 현상태 보여주기
+				schedule[arrivalDate - 1][arrivalAirport - 1][departureAirport - 1][arrivalTime - 1].showSchedule();
+				
 			}
+			break;
 		}
 		case 4: { // 통계
-
+			cout << "\n미완성입니다.\n"; // 나중에 구현
+			break;
 		}
-		case 5: { // 로그아웃
-
+		case 5: { // 끝내기
+			flag = 0;
+			break;
+		}
+		default: {
+			cout << "잘 못 입력하셨습니다. 다시 입력해주세요.\n";
+			break;
 		}
 		}
+		if (!flag) break;
 	}
 	
 	

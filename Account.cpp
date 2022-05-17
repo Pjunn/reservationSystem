@@ -6,6 +6,7 @@ using namespace std;
 #include "Console.h"
 
 Account::Account() {
+	this->mileage = 0;
 }
 Account::Account(string id, string password) {
 	this->id = id;
@@ -56,4 +57,16 @@ void Account::setPassword(string password) {
 
 string Account::getName() { // isregistered, makeAccount(로그인하고) 쓰고 난뒤에 사용가능
 	return nameSet[clientNumber];
+}
+
+void Account::addMileage() {
+	this->mileage += 100;
+}
+
+void Account::minusMileage() {
+	this->mileage -= 100;
+}
+
+int Account::getMileage() {
+	return mileage;
 }
