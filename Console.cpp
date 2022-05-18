@@ -106,3 +106,49 @@ int Console::getBudget() {
 	cin >> budget;
 	return budget;
 }
+
+int Console::memberNum() {
+	int memberNum;
+	cout << "\n인원을 입력해주세요>> ";
+	cin >> memberNum;
+	return memberNum;
+}
+
+int Console::isOver7() {
+	int isOver7;
+	cout << "\n예약자들이 모두 8세 이상인가요?\n";
+	cout << "예:1, 아니요:2>> ";
+	cin >> isOver7;
+	return isOver7;
+}
+
+int Console::isWalkIn() {
+	int isWalkIn;
+	cout << "\nwalk-in 고객이신가요?\n";
+	cout << "예:1, 아니요:2>> ";
+	cin >> isWalkIn;
+	return isWalkIn;
+}
+
+int Console::select_table() {
+	int tableNum;
+	cout << "\n테이블 번호을 입력해주세요.\n";
+	cout << "테이블 번호>> ";
+	cin >> tableNum;
+	return tableNum;
+}
+
+int Console::select_whenEat() {
+	int whenEat;
+	cout << "\n점심 혹은 저녁중에 선택 해주세요.\n";
+	cout << "점심:1, 저녁:2>> ";
+	cin >> whenEat;
+	return whenEat;
+}
+
+int Console::finishMeal() {
+	int finish;
+	cout << "\n식사 마치기:1, 메뉴 선택하기:2>> ";
+	cin >> finish;
+	return finish;
+}

@@ -23,6 +23,11 @@ AirlineBook::AirlineBook() {
 	this->economyTicketPrice = 50000;
 	this->businessTicketPrice = 100000;
 }
+
+AirlineBook::~AirlineBook() {
+	// schedule deleteÇØ¾ßÇÔ
+}
+
 void AirlineBook::book() {
 	while (1) {
 		int flag = 1;

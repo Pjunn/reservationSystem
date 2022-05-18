@@ -37,6 +37,7 @@ class AirlineBook : public BookingSystem {
 		
 public:
 	AirlineBook();
+	~AirlineBook();
 	void book();
 	void login();
 };

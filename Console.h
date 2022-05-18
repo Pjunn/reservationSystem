@@ -17,13 +17,18 @@ public:
 	static int select_waytype();
 	static int select_date();
 	static int getBudget();
+	static int isWalkIn();
+	static int select_table();
+	static int select_whenEat();
+
 
 	static int loginMenu();
 	static string registerName();
 	static string loginID();
 	static string loginPass();
-
-	
+	static int memberNum();
+	static int isOver7();
+	static int finishMeal();
 };
 
 #endif // !CONSOLE_H

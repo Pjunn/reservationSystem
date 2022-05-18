@@ -5,11 +5,13 @@
 #include <iostream>
 using namespace std;
 #include "AirlineBook.h"
+#include "RestaurantBook.h"
 
 class BookInterface {
 	int service;
 	int loginmenu;
 	AirlineBook airlineBook;
+	RestaurantBook restaurantBook;
 public:
 	BookInterface();
 	void start();

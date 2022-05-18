@@ -146,8 +146,11 @@
     <ClCompile Include="Account.cpp" />
     <ClCompile Include="Database.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="RestaurantBook.cpp" />
+    <ClCompile Include="Sale.cpp" />
     <ClCompile Include="Schedule.cpp" />
     <ClCompile Include="Seat.cpp" />
+    <ClCompile Include="Table.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Account.h" />
@@ -156,8 +159,11 @@
     <ClInclude Include="BookInterface.h" />
     <ClInclude Include="Console.h" />
     <ClInclude Include="Database.h" />
+    <ClInclude Include="RestaurantBook.h" />
+    <ClInclude Include="Sale.h" />
     <ClInclude Include="Schedule.h" />
     <ClInclude Include="Seat.h" />
+    <ClInclude Include="Table.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

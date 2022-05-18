@@ -24,6 +24,8 @@ void BookInterface::start() {
 		}
 		case 2: { // 식당
 			//대충 식당예약 객체 시작
+			restaurantBook.login();
+			restaurantBook.book();
 			break;
 		}
 		case 3: { // 독서실
@@ -32,7 +34,7 @@ void BookInterface::start() {
 		}
 		case 4: { // 끝내기
 			flag = 0;
-			cout << "서비스를 이용해 주셔서 감사합니다.\n";
+			cout << "\n서비스를 이용해 주셔서 감사합니다.\n";
 			break;
 		}
 		default: {
