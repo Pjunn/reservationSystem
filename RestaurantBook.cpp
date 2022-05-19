@@ -98,6 +98,7 @@ void RestaurantBook::book() {
 					}
 					else { // 모두 8세 이상
 						// 날짜 선택
+						cout << "\n예약 날짜를 선택해주세요.";
 						date = Console::select_date();
 						// 점심 저녁중 선택
 						whenEat = Console::select_whenEat();
@@ -126,7 +127,7 @@ void RestaurantBook::book() {
 				cout << "\n워크인 대기 취소는 직원에게 문의 하세요\n";
 			}
 			else { // 일반 예약 손님
-
+				cout << "\n예약 날짜를 선택해주세요.";
 				// 날짜 선택
 				date = Console::select_date();
 				// 점심 저녁중 선택
@@ -152,7 +153,7 @@ void RestaurantBook::book() {
 				cout << "\n워크인 대기 보기는 직원에게 문의 하세요\n";
 			}
 			else { // 일반 예약 손님
-
+				cout << "\n예약 날짜를 선택해주세요.";
 				// 날짜 선택
 				date = Console::select_date();
 				// 점심 저녁중 선택

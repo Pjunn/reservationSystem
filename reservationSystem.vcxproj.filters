@@ -19,6 +19,9 @@
     <Filter Include="소스 파일\Restaurant">
       <UniqueIdentifier>{b749de2e-b84f-4375-8265-086c034cc8d4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\ReadingRoom">
+      <UniqueIdentifier>{d1bbef26-9f20-42ea-8e22-7bfd8e90d885}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Account.cpp">
@@ -57,6 +60,12 @@
     <ClCompile Include="Table.cpp">
       <Filter>소스 파일\Restaurant</Filter>
     </ClCompile>
+    <ClCompile Include="ReadingRoomBook.cpp">
+      <Filter>소스 파일\ReadingRoom</Filter>
+    </ClCompile>
+    <ClCompile Include="ReadingRoom.cpp">
+      <Filter>소스 파일\ReadingRoom</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Console.h">
@@ -90,6 +99,12 @@
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="Table.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="ReadingRoomBook.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="ReadingRoom.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>

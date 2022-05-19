@@ -5,6 +5,7 @@ using namespace std;
 
 #include "BookInterface.h"
 #include "AirlineBook.h"
+#include "ReadingRoomBook.h"
 #include "Console.h"
 
 BookInterface::BookInterface() {
@@ -30,6 +31,8 @@ void BookInterface::start() {
 		}
 		case 3: { // 독서실
 			//대충 독서실예약 객체 시작
+			readingRoomBook.login();
+			readingRoomBook.book();
 			break;
 		}
 		case 4: { // 끝내기

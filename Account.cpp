@@ -7,6 +7,7 @@ using namespace std;
 
 Account::Account() {
 	this->mileage = 0;
+	this->BookCount = 4;
 }
 Account::Account(string id, string password) {
 	this->id = id;
@@ -44,6 +45,9 @@ void Account::makeAccount() {
 	nameSet.push_back(name);
 	idSet.push_back(id);
 	passwordSet.push_back(password);
+	mileageSet.push_back(mileage);
+	vector<int> dailyBookCount(7, 4);
+	bookCountSet.push_back(dailyBookCount);
 	clientNumber = (int)idSet.size() - 1; // 인덱스로 접근하기 위한 번호
 }
 
@@ -60,13 +64,25 @@ string Account::getName() { // isregistered, makeAccount(로그인하고) 쓰고 난뒤에
 }
 
 void Account::addMileage() {
-	this->mileage += 100;
+	mileageSet[clientNumber] += 100;
 }
 
 void Account::minusMileage() {
-	this->mileage -= 100;
+	mileageSet[clientNumber] -= 100;
 }
 
 int Account::getMileage() {
-	return mileage;
+	return mileageSet[clientNumber];
+}
+
+void Account::useBookCount(int date) {
+	bookCountSet[clientNumber][date - 1] -= 1;
+}
+
+void Account::cancelBookCount(int date) {
+	bookCountSet[clientNumber][date - 1] += 1;
+}
+
+int Account::getBookCount(int date) {
+	return bookCountSet[clientNumber][date - 1];
 }

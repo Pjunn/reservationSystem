@@ -152,3 +152,45 @@ int Console::finishMeal() {
 	cin >> finish;
 	return finish;
 }
+
+int Console::select_ReadingRoomTime() {
+	int time;
+	cout << "\n이용하실 시간을 선택 해주세요.\n";
+	for (int i = 9; i < 23; i++) {
+		cout << i << "시 ~ " << i + 1 << "시:" << i - 8 << "\n";
+	}
+	cout << "이용시간>> ";
+	cin >> time;
+	return time;
+}
+
+int Console::isOver13() {
+	int isOver13;
+	cout << "\n나이가 14세 이상인가요?\n";
+	cout << "예:1, 아니요:2>> ";
+	cin >> isOver13;
+	return isOver13;
+}
+
+int Console::select_sex() {
+	int sex;
+	cout << "\n성별을 선택해주세요.\n";
+	cout << "남성:1, 여성:2>> ";
+	cin >> sex;
+	return sex;
+}
+
+int Console::select_seatrow() {
+	int row;
+	cout << "\n좌석을 선택해주세요.\n";
+	cout << "좌석 행>> ";
+	cin >> row;
+	return row;
+}
+
+int Console::select_seatcolumm() {
+	int columm;
+	cout << "좌석 열>> ";
+	cin >> columm;
+	return columm;
+}

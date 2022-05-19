@@ -20,7 +20,10 @@ public:
 	static int isWalkIn();
 	static int select_table();
 	static int select_whenEat();
-
+	static int select_ReadingRoomTime();
+	static int select_sex();
+	static int select_seatrow();
+	static int select_seatcolumm();
 
 	static int loginMenu();
 	static string registerName();
@@ -29,6 +32,8 @@ public:
 	static int memberNum();
 	static int isOver7();
 	static int finishMeal();
+	static int isOver13();
+
 };
 
 #endif // !CONSOLE_H

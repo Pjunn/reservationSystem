@@ -146,6 +146,8 @@
     <ClCompile Include="Account.cpp" />
     <ClCompile Include="Database.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="ReadingRoom.cpp" />
+    <ClCompile Include="ReadingRoomBook.cpp" />
     <ClCompile Include="RestaurantBook.cpp" />
     <ClCompile Include="Sale.cpp" />
     <ClCompile Include="Schedule.cpp" />
@@ -159,6 +161,8 @@
     <ClInclude Include="BookInterface.h" />
     <ClInclude Include="Console.h" />
     <ClInclude Include="Database.h" />
+    <ClInclude Include="ReadingRoom.h" />
+    <ClInclude Include="ReadingRoomBook.h" />
     <ClInclude Include="RestaurantBook.h" />
     <ClInclude Include="Sale.h" />
     <ClInclude Include="Schedule.h" />

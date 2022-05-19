@@ -11,7 +11,7 @@ class Schedule {
 	Seat* seat;
 	string scheduleName;
 	int seatNum;
-	string personName;
+	//string personName;
 	int date;
 public:
 	Schedule();

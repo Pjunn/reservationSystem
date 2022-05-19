@@ -12,9 +12,12 @@ class Account {
 	string password;
 	int clientNumber;
 	int mileage;
+	int BookCount;
 	vector<string> nameSet;
 	vector<string> idSet;
 	vector<string> passwordSet;
+	vector<int> mileageSet;
+	vector<vector<int>> bookCountSet;
 public:
 	Account();
 	Account(string id, string password);
@@ -26,5 +29,8 @@ public:
 	void addMileage();
 	void minusMileage();
 	int getMileage();
+	void useBookCount(int date);
+	void cancelBookCount(int date);
+	int getBookCount(int date);
 };
 #endif // !ACCOUNT_H
