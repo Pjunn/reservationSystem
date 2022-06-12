@@ -7,12 +7,14 @@
 #include "Account.h"
 #include "Console.h"
 #include "ReadingRoom.h"
+#include "ReadingRoomDatabase.h"
 #include <string>
 using namespace std;
 
 class ReadingRoomBook : public BookingSystem {
 	Account readingRoomAccount;
 	ReadingRoom** readingRoom;
+	ReadingRoomDatabase readingRoomDatabase;
 	int loginmenu;
 	int menu;
 	int date;
@@ -24,6 +26,7 @@ class ReadingRoomBook : public BookingSystem {
 	int seatColumm;
 	string name;
 	string readingRoomName;
+	int information;
 public:
 	ReadingRoomBook();
 	~ReadingRoomBook();

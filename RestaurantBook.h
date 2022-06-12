@@ -8,6 +8,7 @@
 #include "Console.h"
 #include "Sale.h"
 #include <queue>
+#include "RestaurantDatabase.h"
 
 using namespace std;
 
@@ -16,6 +17,7 @@ class RestaurantBook : public BookingSystem {
 	Sale** sale;
 	Table* walkinTable;
 	queue<string> waitingQueue;
+	RestaurantDatabase restaurantDatabase;
 	int loginmenu;
 	int menu;
 	int date;
@@ -25,6 +27,7 @@ class RestaurantBook : public BookingSystem {
 	int whenEat;
 	int tableNum;
 	int finishMeal;
+	int information;
 public:
 	RestaurantBook();
 	~RestaurantBook();

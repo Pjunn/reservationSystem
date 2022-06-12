@@ -24,6 +24,9 @@ public:
 	static int select_sex();
 	static int select_seatrow();
 	static int select_seatcolumm();
+	static int select_seatInformation();
+	static int select_tableInformation();
+	static int select_sexInformation();
 
 	static int loginMenu();
 	static string registerName();

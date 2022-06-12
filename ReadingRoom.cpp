@@ -96,3 +96,18 @@ bool ReadingRoom::cancelBook(int seatRow, int seatColumm, string name){
 	}
 }
 
+void ReadingRoom::showBookCount(int seatRow, int seatColumm)
+{
+	cout << "\n본 좌석의 예약 횟수는 " << seat[seatRow - 1][seatColumm - 1].showCount() << "회 입니다.\n";
+}
+
+void ReadingRoom::addBookCount(int seatRow, int seatColumm)
+{
+	seat[seatRow - 1][seatColumm - 1].countUp();
+}
+
+void ReadingRoom::cancelBookCount(int seatRow, int seatColumm)
+{
+	seat[seatRow - 1][seatColumm - 1].countDown();
+}
+

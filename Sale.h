@@ -20,6 +20,9 @@ public:
 	void showSale();
 	bool setBook(int tableNum, string tableName);
 	bool cancelBook(int tableNum, string tableName);
+	void showBookCount(int tableNum);
+	void addBookCount(int tableNum);
+	void cancelBookCount(int tableNum);
 };
 
 #endif // !SALE_H

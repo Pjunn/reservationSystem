@@ -5,6 +5,7 @@ using namespace std;
 
 Seat::Seat() {
 	name = { "---" };
+	this->bookedCount = 0;
 }
 
 void Seat::setName(string name) {
@@ -17,4 +18,16 @@ void Seat::resetName() {
 
 string Seat::showName() {
 	return name;
+}
+
+void Seat::countUp(){
+	bookedCount += 1;
+}
+
+void Seat::countDown(){
+	bookedCount -= 1;
+}
+
+int Seat::showCount() {
+	return bookedCount;
 }

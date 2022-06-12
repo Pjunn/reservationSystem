@@ -58,3 +58,18 @@ bool Sale::cancelBook(int tableNum, string name) {
 		return true;
 	}
 }
+
+void Sale::showBookCount(int tableNum)
+{
+	cout << "\n본 좌석의 예약 횟수는 " << table[tableNum - 1].showCount() << "회 입니다.\n";
+}
+
+void Sale::addBookCount(int tableNum)
+{
+	table[tableNum - 1].countUp();
+}
+
+void Sale::cancelBookCount(int tableNum)
+{
+	table[tableNum - 1].countDown();
+}

@@ -25,6 +25,14 @@ void Schedule::showSchedule() {
 	cout << "\n";
 }
 
+void Schedule::showScheduleBusiness() {
+	cout << this->date << this->scheduleName << ":";
+	for (int i = 0; i < 8; i++) {
+		cout << "\t" << seat[i].showName();
+	}
+	cout << "\n";
+}
+
 void Schedule::showScheduleEconomy() {
 	cout << this->date << this->scheduleName << ":";
 	for (int i = 0; i < 8; i++) {
@@ -44,6 +52,21 @@ void Schedule::showScheduleNone() {
 		cout << "\t" << "xxx";
 	}
 	cout << "\n\n";
+}
+
+void Schedule::showBookCount(int seatNum)
+{
+	cout << "\n본 좌석의 예약 횟수는 " << seat[seatNum - 1].showCount() << "회 입니다.\n";
+}
+
+void Schedule::addBookCount(int seatNum)
+{
+	seat[seatNum - 1].countUp();
+}
+
+void Schedule::cancelBookCount(int seatNum)
+{
+	seat[seatNum - 1].countDown();
 }
 
 bool Schedule::setBook(int seatNum, string name) {
@@ -74,3 +97,4 @@ bool Schedule::cancelBook(int seatNum, string name) {
 		return true;
 	}
 }
+

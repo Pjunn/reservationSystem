@@ -53,6 +53,9 @@ void ReadingRoomBook::book() {
 						name = to_string(sex) + readingRoomAccount.getName();
 						if (readingRoom[date - 1][readingRoomTime - 1].setBook(seatRow, seatColumm, name)) {
 							readingRoomAccount.useBookCount(date);
+							readingRoomDatabase.addSeatdata(readingRoomAccount.getClientNum());
+							readingRoom[date - 1][readingRoomTime - 1].addBookCount(seatRow, seatColumm);
+							readingRoomDatabase.addSexdata(sex);
 							break;
 						}
 							
@@ -86,7 +89,10 @@ void ReadingRoomBook::book() {
 				name = to_string(sex) + readingRoomAccount.getName();
 				if (readingRoom[date - 1][readingRoomTime - 1].cancelBook(seatRow, seatColumm, name)) {
 					readingRoomAccount.cancelBookCount(date);
-					break;
+					readingRoomDatabase.cancelSeatdata(readingRoomAccount.getClientNum());
+					readingRoom[date - 1][readingRoomTime - 1].cancelBookCount(seatRow, seatColumm);
+					readingRoomDatabase.cancelSexdata(sex);
+					break; // 알맞게 취소하면 break
 				}
 					
 			}
@@ -103,7 +109,32 @@ void ReadingRoomBook::book() {
 			break;
 		}
 		case 4: { // 통계
-			cout << "\n미완성입니다.\n"; // 나중에 구현
+			// 어떤 통계를 원하는지 
+			information = Console::select_sexInformation();
+			if (information == 1) { // 고객의 예약 횟수
+				cout << "\n고객님의 예약 횟수는 " << readingRoomDatabase.getSeatdata(readingRoomAccount.getClientNum()) << "회 입니다.\n";
+			}
+			else if (information == 2) { // 좌석별 예약 횟수
+				// 날짜 선택
+				cout << "\n예약 날짜를 선택해주세요.";
+				date = Console::select_date();
+				// 시간 선택
+				readingRoomTime = Console::select_ReadingRoomTime();
+				// 좌석 선택
+				seatRow = Console::select_seatrow();
+				seatColumm = Console::select_seatcolumm();
+				readingRoom[date - 1][readingRoomTime - 1].showBookCount(seatRow, seatColumm);
+			}
+			else { //성별 예약 횟수
+				// 성별 선택
+				sex = Console::select_sex();
+				if (sex == 1) {
+					cout << "\n남성 고객님의 예약 횟수는 " << readingRoomDatabase.getSexdata(sex) << "회 입니다.\n";
+				}
+				else {
+					cout << "\n여성 고객님의 예약 횟수는 " << readingRoomDatabase.getSexdata(sex) << "회 입니다.\n";
+				}
+			}
 			break;
 		}
 		case 5: { // 끝내기
@@ -138,6 +169,7 @@ void ReadingRoomBook::login() {
 		else if (loginmenu == 2) { // 회원가입 선택
 			cout << "\n회원가입을 할때 이름을 세대주로 해주시고 id는 세대 ID로 해주시기 바랍니다.\n";
 			readingRoomAccount.makeAccount();
+			readingRoomDatabase.save(); // database에 예약 횟수 세이브
 			cout << "회원가입이 완료되었습니다.\n로그인하고 메뉴를 선택해주세요.\n";
 		}
 		else {

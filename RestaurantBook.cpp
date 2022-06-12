@@ -27,18 +27,21 @@ void RestaurantBook::book() {
 			finishMeal = Console::finishMeal();
 			if (finishMeal == 1) { // 식사 마치기를 선택
 				cout << "\n또 오세요!\n\n";
-				cout << waitingQueue.front() << "님 들어오세요! 식사 맛있게 하세요!\n";
-				if (walkinTable[0].showName() == restaurantAccount.getName()) { // 1번 테이블 사용자
-					walkinTable[0].resetName();
-					walkinTable[0].setName(waitingQueue.front());
-					waitingQueue.pop();
+				if (!waitingQueue.empty()) {
+					cout << waitingQueue.front() << "님 들어오세요! 식사 맛있게 하세요!\n";
+					if (walkinTable[0].showName() == restaurantAccount.getName()) { // 1번 테이블 사용자
+						walkinTable[0].resetName();
+						walkinTable[0].setName(waitingQueue.front());
+						waitingQueue.pop();
+					}
+					else { // 2번 테이블 사용자
+						walkinTable[1].resetName();
+						walkinTable[1].setName(waitingQueue.front());
+						waitingQueue.pop();
+					}
+					break;
 				}
-				else { // 2번 테이블 사용자
-					walkinTable[1].resetName();
-					walkinTable[1].setName(waitingQueue.front());
-					waitingQueue.pop();
-				}
-				break;
+				
 			}
 		}
 		menu = Console::select_menu(); //예약:1, 취소:2, 보기:3, 통계:4, 끝내기:5
@@ -109,6 +112,8 @@ void RestaurantBook::book() {
 							//테이블 선택
 							tableNum = Console::select_table();
 							if (sale[date - 1][whenEat - 1].setBook(tableNum, restaurantAccount.getName())) {
+								restaurantDatabase.addTabledata(restaurantAccount.getClientNum());
+								sale[date - 1][whenEat - 1].addBookCount(tableNum);
 								break;
 							}
 						}
@@ -139,6 +144,8 @@ void RestaurantBook::book() {
 					//테이블 선택
 					tableNum = Console::select_table();
 					if (sale[date - 1][whenEat - 1].cancelBook(tableNum, restaurantAccount.getName())) {
+						restaurantDatabase.cancelTabledata(restaurantAccount.getClientNum());
+						sale[date - 1][whenEat - 1].cancelBookCount(tableNum);
 						break; // 알맞게 취소하면 break
 					}
 				}
@@ -165,7 +172,21 @@ void RestaurantBook::book() {
 			break;
 		}
 		case 4: { // 통계
-			cout << "\n미완성입니다.\n"; // 나중에 구현
+			// 어떤 통계를 원하는지 
+			information = Console::select_tableInformation();
+			if (information == 1) { // 고객의 예약 횟수
+				cout << "\n고객님의 예약 횟수는 " << restaurantDatabase.getTabledata(restaurantAccount.getClientNum()) << "회 입니다.\n";
+			}
+			else { // 좌석별 예약 횟수
+				// 날짜 선택
+				cout << "\n예약 날짜를 선택해주세요.";
+				date = Console::select_date();
+				// 점심 저녁중 선택
+				whenEat = Console::select_whenEat();
+				//테이블 선택
+				tableNum = Console::select_table();
+				sale[date - 1][whenEat - 1].showBookCount(tableNum);
+			}
 			break;
 		}
 		case 5: { // 끝내기
@@ -198,6 +219,7 @@ void RestaurantBook::login() {
 		}
 		else if (loginmenu == 2) { // 회원가입 선택
 			restaurantAccount.makeAccount();
+			restaurantDatabase.save(); // database에 예약 횟수 세이브
 			cout << "회원가입이 완료되었습니다.\n로그인하고 메뉴를 선택해주세요.\n";
 		}
 		else {

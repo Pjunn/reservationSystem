@@ -7,13 +7,14 @@
 #include "Account.h"
 #include "Console.h"
 #include "Schedule.h"
-
+#include "AirlineDatabase.h"
 
 using namespace std;
 
 class AirlineBook : public BookingSystem {
 	Account airlineAccount;
 	Schedule**** schedule;
+	AirlineDatabase airlineDatabase;
 	int menu;
 	int departureTime;
 	int arrivalTime;
@@ -33,6 +34,7 @@ class AirlineBook : public BookingSystem {
 	int budget;
 	int economyTicketPrice;
 	int businessTicketPrice;
+	int information;
 		
 		
 public:

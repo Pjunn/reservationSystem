@@ -4,6 +4,7 @@
 
 #include <iostream>
 #include <vector>
+
 using namespace std;
 
 class Account {
@@ -32,5 +33,6 @@ public:
 	void useBookCount(int date);
 	void cancelBookCount(int date);
 	int getBookCount(int date);
+	int getClientNum();
 };
 #endif // !ACCOUNT_H

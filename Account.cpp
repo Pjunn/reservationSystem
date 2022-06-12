@@ -62,7 +62,9 @@ void Account::setPassword(string password) {
 string Account::getName() { // isregistered, makeAccount(로그인하고) 쓰고 난뒤에 사용가능
 	return nameSet[clientNumber];
 }
-
+int Account::getClientNum() {
+	return clientNumber;
+}
 void Account::addMileage() {
 	mileageSet[clientNumber] += 100;
 }

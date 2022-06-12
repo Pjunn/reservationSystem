@@ -7,10 +7,14 @@ using namespace std;
 
 class Seat {
     string name;
+    int bookedCount;
 public:
     Seat();
     void setName(string name);
     void resetName();
     string showName();
+    void countUp();
+    void countDown();
+    int showCount();
 };
 #endif // !SEAT_H

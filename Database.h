@@ -8,7 +8,7 @@ using namespace std;
 class Database {
 public:
 	Database();
-	void save();
+	void save(int clientNum);
 };
 #endif // !DATABASE_H
 

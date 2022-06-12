@@ -75,6 +75,8 @@ void AirlineBook::book() {
 					if (schedule[departureDate - 1][departureAirport - 1][arrivalAirport - 1][departureTime - 1].setBook(seatNum, airlineAccount.getName())) {
 						airlineAccount.addMileage();
 						mileage = airlineAccount.getMileage();
+						airlineDatabase.addSeatdata(airlineAccount.getClientNum());
+						schedule[departureDate - 1][departureAirport - 1][arrivalAirport - 1][departureTime - 1].addBookCount(seatNum);
 						break; // 빈자리에 예약하면 break
 					}
 				}
@@ -93,7 +95,7 @@ void AirlineBook::book() {
 				budget = Console::getBudget();
 				cout << "\n예산범위에 따른 예약가능 좌석은 ---로 표시됩니다.\n";
 				if (budget >= businessTicketPrice * wayType) {
-					schedule[departureDate - 1][departureAirport - 1][arrivalAirport - 1][departureTime - 1].showSchedule();
+					schedule[departureDate - 1][departureAirport - 1][arrivalAirport - 1][departureTime - 1].showScheduleBusiness();
 				}
 				else if (budget >= economyTicketPrice * wayType) {
 					schedule[departureDate - 1][departureAirport - 1][arrivalAirport - 1][departureTime - 1].showScheduleEconomy();
@@ -111,6 +113,8 @@ void AirlineBook::book() {
 					if (schedule[departureDate - 1][departureAirport - 1][arrivalAirport - 1][departureTime - 1].setBook(seatNum, airlineAccount.getName())) {
 						airlineAccount.addMileage();
 						mileage = airlineAccount.getMileage();
+						airlineDatabase.addSeatdata(airlineAccount.getClientNum());
+						schedule[departureDate - 1][departureAirport - 1][arrivalAirport - 1][departureTime - 1].addBookCount(seatNum);
 						break; // 빈자리에 예약하면 break
 					}
 				}
@@ -128,18 +132,18 @@ void AirlineBook::book() {
 				cout << "\n돌아올 시간을 선택해주세요.";
 				arrivalTime = Console::select_time(); // 마지막 0,1,2에 대응
 
-				cout << "\n좌석번호 1~4는 비즈니스 좌석, 5~8은 이코노미 좌석입니다.";
+				/*cout << "\n좌석번호 1~4는 비즈니스 좌석, 5~8은 이코노미 좌석입니다.";
 				cout << "\n이코노미: " << economyTicketPrice * wayType << "원 비즈니스: " << businessTicketPrice * wayType << "원\n";
-				budget = Console::getBudget();
+				budget = Console::getBudget();*/
 				cout << "\n예산범위에 따른 예약가능 좌석은 ---로 표시됩니다.\n";
 				if (budget >= businessTicketPrice * wayType) {
-					schedule[departureDate - 1][departureAirport - 1][arrivalAirport - 1][departureTime - 1].showSchedule();
+					schedule[arrivalDate - 1][departureAirport - 1][arrivalAirport - 1][arrivalTime - 1].showScheduleBusiness();
 				}
 				else if (budget >= economyTicketPrice * wayType) {
-					schedule[departureDate - 1][departureAirport - 1][arrivalAirport - 1][departureTime - 1].showScheduleEconomy();
+					schedule[arrivalDate - 1][departureAirport - 1][arrivalAirport - 1][arrivalTime - 1].showScheduleEconomy();
 				}
 				else {
-					schedule[departureDate - 1][departureAirport - 1][arrivalAirport - 1][departureTime - 1].showScheduleNone();
+					schedule[arrivalDate - 1][departureAirport - 1][arrivalAirport - 1][arrivalTime - 1].showScheduleNone();
 				}
 
 				// 이제 예약하자
@@ -151,6 +155,8 @@ void AirlineBook::book() {
 					if (schedule[arrivalDate - 1][arrivalAirport - 1][departureAirport - 1][arrivalTime - 1].setBook(seatNum, airlineAccount.getName())) {
 						airlineAccount.addMileage();
 						mileage = airlineAccount.getMileage();
+						airlineDatabase.addSeatdata(airlineAccount.getClientNum());
+						schedule[departureDate - 1][departureAirport - 1][arrivalAirport - 1][departureTime - 1].addBookCount(seatNum);
 						break; // 빈자리에 예약하면 break
 					}
 				}
@@ -187,6 +193,8 @@ void AirlineBook::book() {
 					if (schedule[departureDate - 1][departureAirport - 1][arrivalAirport - 1][departureTime - 1].cancelBook(seatNum, airlineAccount.getName())) {
 						airlineAccount.minusMileage();
 						mileage = airlineAccount.getMileage();
+						airlineDatabase.cancelSeatdata(airlineAccount.getClientNum());
+						schedule[departureDate - 1][departureAirport - 1][arrivalAirport - 1][departureTime - 1].cancelBookCount(seatNum);
 						break; // 알맞게 취소하면 break
 					}
 				}
@@ -208,6 +216,8 @@ void AirlineBook::book() {
 					if (schedule[departureDate - 1][departureAirport - 1][arrivalAirport - 1][departureTime - 1].setBook(seatNum, airlineAccount.getName())) {
 						airlineAccount.minusMileage();
 						mileage = airlineAccount.getMileage();
+						airlineDatabase.cancelSeatdata(airlineAccount.getClientNum());
+						schedule[departureDate - 1][departureAirport - 1][arrivalAirport - 1][departureTime - 1].cancelBookCount(seatNum);
 						break; // 알맞게 취소하면 break
 					}
 				}
@@ -233,6 +243,8 @@ void AirlineBook::book() {
 					if (schedule[arrivalDate - 1][arrivalAirport - 1][departureAirport - 1][arrivalTime - 1].cancelBook(seatNum, airlineAccount.getName())) {
 						airlineAccount.minusMileage();
 						mileage = airlineAccount.getMileage();
+						airlineDatabase.cancelSeatdata(airlineAccount.getClientNum());
+						schedule[departureDate - 1][departureAirport - 1][arrivalAirport - 1][departureTime - 1].cancelBookCount(seatNum);
 						break; // 알맞게 취소하면 break
 					}
 				}
@@ -296,7 +308,33 @@ void AirlineBook::book() {
 			break;
 		}
 		case 4: { // 통계
-			cout << "\n미완성입니다.\n"; // 나중에 구현
+			// 어떤 통계를 원하는지 
+			information = Console::select_seatInformation();
+			if (information == 1) { // 고객의 예약 횟수
+				cout << "\n고객님의 예약 횟수는 " << airlineDatabase.getSeatdata(airlineAccount.getClientNum()) << "회 입니다.\n";
+			}
+			else { // 좌석별 예약 횟수
+				cout << "\n출발 공항을 선택해주세요.";
+				departureAirport = Console::select_airport(); // j에 대응
+				while (1) {
+					cout << "\n도착 공항을 선택해주세요.";
+					arrivalAirport = Console::select_airport(); // k에 대응
+					if (departureAirport != arrivalAirport) break;
+					else {
+						cout << "\n도착지를 다시 입력해주세요.\n";
+					}
+				}
+				//갈때 날짜 
+				cout << "\n출발 일자를 선택해주세요.";
+				departureDate = Console::select_date(); // i에 대응
+				//갈때 시간
+				cout << "\n출발 시간를 선택해주세요.";
+				departureTime = Console::select_time(); // 마지막 0,1,2에 대응
+				//갈때 좌석
+				seatNum = Console::select_seat();
+				schedule[departureDate - 1][departureAirport - 1][arrivalAirport - 1][departureTime - 1].showBookCount(seatNum);
+
+			}
 			break;
 		}
 		case 5: { // 끝내기
@@ -331,6 +369,7 @@ void AirlineBook::login() {
 		}
 		else if (loginmenu == 2) { // 회원가입 선택
 			airlineAccount.makeAccount();
+			airlineDatabase.save(); // database에 예약 횟수 세이브
 			cout << "회원가입이 완료되었습니다.\n로그인하고 메뉴를 선택해주세요.\n";
 		}
 		else {

@@ -37,7 +37,7 @@ string Console::loginPass() {
 
 int Console::select_seat() {
 	int seat;
-	cout << "\n예약/취소 하려는 좌석의 번호를 입력해주세요.";
+	cout << "\n예약/취소/통계확인 하려는 좌석의 번호를 입력해주세요.";
 	cout << "\n좌석번호>> ";
 	cin >> seat;
 	return seat;
@@ -193,4 +193,31 @@ int Console::select_seatcolumm() {
 	cout << "좌석 열>> ";
 	cin >> columm;
 	return columm;
+}
+
+int Console::select_seatInformation(){
+	int information;
+	cout << "\n고객의 예약 횟수:1, 좌석별 예약된 횟수:2>> ";
+	cin >> information;
+	return information;
+
+	
+}
+
+int Console::select_tableInformation()
+{
+	int information;
+	cout << "\n고객의 예약 횟수:1, 테이블별 예약된 횟수:2>> ";
+	cin >> information;
+	return information;
+
+}
+
+int Console::select_sexInformation()
+{
+	int information;
+	cout << "\n고객의 예약 횟수:1, 좌석별 예약된 횟수:2, 성별 예약된 횟수:3>> ";
+	cin >> information;
+	return information;
+
 }
