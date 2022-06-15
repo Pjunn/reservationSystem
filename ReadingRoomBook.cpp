@@ -17,7 +17,10 @@ ReadingRoomBook::ReadingRoomBook() {
 }
 
 ReadingRoomBook::~ReadingRoomBook() {
-
+	for (int i = 0; i < 7; i++) {
+		delete[] readingRoom[i];
+	}
+	delete[] readingRoom;
 }
 
 void ReadingRoomBook::book() {
@@ -56,6 +59,18 @@ void ReadingRoomBook::book() {
 							readingRoomDatabase.addSeatdata(readingRoomAccount.getClientNum());
 							readingRoom[date - 1][readingRoomTime - 1].addBookCount(seatRow, seatColumm);
 							readingRoomDatabase.addSexdata(sex);
+
+							//예약정보 저장
+							fout.open("readingRoomBook_reloadSet.txt", ios::out | ios::app);
+							fout << date << " " << readingRoomTime << " " << seatRow << " " << seatColumm << " " << name << " " << readingRoomAccount.getBookCount(date) << " " << readingRoom[date - 1][readingRoomTime - 1].getBookCount(seatRow, seatColumm) << " " << readingRoomAccount.getClientNum() << endl;
+							fout.close();
+
+							//예약자의 예약횟수, 성별 예약횟수 정보 저장
+							fout.open("readingRoomBook_DataSet.txt", ios::out | ios::app);
+							fout << readingRoomAccount.getClientNum() << " " << readingRoomDatabase.getSeatdata(readingRoomAccount.getClientNum()) << " " << readingRoomDatabase.getSexdata(1) << " " << readingRoomDatabase.getSexdata(2) << endl;
+							fout.close();
+							
+
 							break;
 						}
 							
@@ -151,6 +166,69 @@ void ReadingRoomBook::book() {
 }
 
 void ReadingRoomBook::login() {
+	if (readingRoomAccount.getClientNum() == -1) {
+		//리로드
+		//idset에 저장된 id 벡터 셋으로 가져오기
+		fin.open("readingRoomAccount_idSet.txt", ios::in | ios::out | ios::app);
+		while (!fin.eof()) {
+			getline(fin, id);
+			readingRoomAccount.pushId(id);
+			readingRoomDatabase.save();
+		}
+		fin.close();
+
+		//passwordset에 저장된 password 벡터 셋으로 가져오기
+		fin.open("readingRoomAccount_passwordSet.txt", ios::in | ios::out | ios::app);
+		while (!fin.eof()) {
+			getline(fin, password);
+			readingRoomAccount.pushPassword(password);
+		}
+		fin.close();
+
+		//nameset에 저장된 name 벡터 셋으로 가져오기
+		fin.open("readingRoomAccount_nameSet.txt", ios::in | ios::out | ios::app);
+		while (!fin.eof()) {
+			getline(fin, name);
+			readingRoomAccount.pushName(name);
+		}
+		fin.close();
+
+		//정보 불러오기
+		fin.open("readingRoomBook_reloadSet.txt", ios::in | ios::out | ios::app);
+		while (!fin.eof()) {
+			getline(fin, bookInformation);
+			istringstream ss(bookInformation);
+			string strBuf;
+			stringSet.clear();
+			while (getline(ss, strBuf, ' ')) {
+				stringSet.push_back(strBuf);
+			}
+			if (bookInformation != "") {
+				readingRoom[stoi(stringSet[0]) - 1][stoi(stringSet[1]) - 1].setBookReload(stoi(stringSet[2]), stoi(stringSet[3]), stringSet[4]);
+				readingRoomAccount.setBookCount(stoi(stringSet[0]), stoi(stringSet[5]), stoi(stringSet[7]));
+				readingRoom[stoi(stringSet[0]) - 1][stoi(stringSet[1]) - 1].setBookCount(stoi(stringSet[2]), stoi(stringSet[3]), stoi(stringSet[6]));
+			}
+
+		}
+		fin.close();
+		//예약자의 예약횟수 정보 불러오기
+		fin.open("readingRoomBook_DataSet.txt", ios::in | ios::out | ios::app);
+		while (!fin.eof()) {
+			getline(fin, bookInformation);
+			istringstream ss(bookInformation);
+			string strBuf;
+			stringSet.clear();
+			while (getline(ss, strBuf, ' ')) {
+				stringSet.push_back(strBuf);
+			}
+			if (bookInformation != "") {
+				readingRoomDatabase.setSeatdata(stoi(stringSet[1]), stoi(stringSet[0]));
+				readingRoomDatabase.setSexdata(stoi(stringSet[2]), stoi(stringSet[3]));
+			}
+		}
+		fin.close();
+
+	}
 	while (1) {
 		cout << "\n본 아파트는 300층의 초고층아파트로 거주하시는 아파트의 층수가 세대 ID입니다.\n";
 		loginmenu = Console::loginMenu();
@@ -169,6 +247,19 @@ void ReadingRoomBook::login() {
 		else if (loginmenu == 2) { // 회원가입 선택
 			cout << "\n회원가입을 할때 이름을 세대주로 해주시고 id는 세대 ID로 해주시기 바랍니다.\n";
 			readingRoomAccount.makeAccount();
+			//id 파일에저장
+			fout.open("readingRoomAccount_idSet.txt", ios::out | ios::app);
+			fout << readingRoomAccount.getId() << endl;
+			fout.close();
+			//password 파일에 저장
+			fout.open("readingRoomAccount_passwordSet.txt", ios::out | ios::app);
+			fout << readingRoomAccount.getPassword() << endl;
+			fout.close();
+			//name 파일에 저장
+			fout.open("readingRoomAccount_nameSet.txt", ios::out | ios::app);
+			fout << readingRoomAccount.getName() << endl;
+			fout.close();
+
 			readingRoomDatabase.save(); // database에 예약 횟수 세이브
 			cout << "회원가입이 완료되었습니다.\n로그인하고 메뉴를 선택해주세요.\n";
 		}

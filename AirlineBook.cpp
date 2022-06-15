@@ -25,7 +25,23 @@ AirlineBook::AirlineBook() {
 }
 
 AirlineBook::~AirlineBook() {
-	// schedule delete해야함
+	for (int i = 0; i < 7; i++) {
+		for (int j = 0; j < 5; j++) {
+			for (int k = 0; k < 4; k++) {
+				delete[] schedule[i][j][k]; // 3개의 시간
+			}
+		}
+	}
+	for (int i = 0; i < 7; i++) {
+		for (int j = 0; j < 5; j++) {
+			delete[] schedule[i][j];
+		}
+	}
+	for (int i = 0; i < 7; i++) {
+		delete[] schedule[i];
+		
+	}
+	delete[] schedule;
 }
 
 void AirlineBook::book() {
@@ -77,6 +93,18 @@ void AirlineBook::book() {
 						mileage = airlineAccount.getMileage();
 						airlineDatabase.addSeatdata(airlineAccount.getClientNum());
 						schedule[departureDate - 1][departureAirport - 1][arrivalAirport - 1][departureTime - 1].addBookCount(seatNum);
+						//예약정보(이름) 저장
+						fout.open("airlineBook_nameSet.txt", ios::out | ios::app);
+						fout << departureDate << " " << departureAirport << " " << arrivalAirport << " " << departureTime << " " << seatNum << " " << airlineAccount.getName() << endl;
+						fout.close();
+						//예약자의 예약횟수 정보 저장
+						fout.open("airlineBook_seatDataSet.txt", ios::out | ios::app);
+						fout << airlineAccount.getClientNum() << " " << airlineDatabase.getSeatdata(airlineAccount.getClientNum()) << endl;
+						fout.close();
+						//예약정보(좌석의 예약횟수) 저장
+						fout.open("airlineBook_bookCountSet.txt", ios::out | ios::app);
+						fout << departureDate << " " << departureAirport << " " << arrivalAirport << " " << departureTime << " " << seatNum << " " << schedule[departureDate - 1][departureAirport - 1][arrivalAirport - 1][departureTime - 1].getBookCount(seatNum) << endl;
+						fout.close();
 						break; // 빈자리에 예약하면 break
 					}
 				}
@@ -115,6 +143,18 @@ void AirlineBook::book() {
 						mileage = airlineAccount.getMileage();
 						airlineDatabase.addSeatdata(airlineAccount.getClientNum());
 						schedule[departureDate - 1][departureAirport - 1][arrivalAirport - 1][departureTime - 1].addBookCount(seatNum);
+						//예약정보(이름) 저장
+						fout.open("airlineBook_nameSet.txt", ios::out | ios::app);
+						fout << departureDate << " " << departureAirport << " " << arrivalAirport << " " << departureTime << " " << seatNum << " " << airlineAccount.getName() << endl;
+						fout.close();
+						//예약자의 예약횟수 정보 저장
+						fout.open("airlineBook_seatDataSet.txt", ios::out | ios::app);
+						fout << airlineAccount.getClientNum() << " " << airlineDatabase.getSeatdata(airlineAccount.getClientNum()) << endl;
+						fout.close();
+						//예약정보(좌석의 예약횟수) 저장
+						fout.open("airlineBook_bookCountSet.txt", ios::out | ios::app);
+						fout << departureDate << " " << departureAirport << " " << arrivalAirport << " " << departureTime << " " << seatNum << " " << schedule[departureDate - 1][departureAirport - 1][arrivalAirport - 1][departureTime - 1].getBookCount(seatNum) << endl;
+						fout.close();
 						break; // 빈자리에 예약하면 break
 					}
 				}
@@ -156,7 +196,19 @@ void AirlineBook::book() {
 						airlineAccount.addMileage();
 						mileage = airlineAccount.getMileage();
 						airlineDatabase.addSeatdata(airlineAccount.getClientNum());
-						schedule[departureDate - 1][departureAirport - 1][arrivalAirport - 1][departureTime - 1].addBookCount(seatNum);
+						schedule[arrivalDate - 1][arrivalAirport - 1][departureAirport - 1][arrivalTime - 1].addBookCount(seatNum);
+						//예약정보(이름) 저장
+						fout.open("airlineBook_nameSet.txt", ios::out | ios::app);
+						fout << arrivalDate << " " << arrivalAirport << " " << departureAirport << " " << arrivalTime << " " << seatNum << " " << airlineAccount.getName() << endl;
+						fout.close();
+						//예약자의 예약횟수 정보 저장
+						fout.open("airlineBook_seatDataSet.txt", ios::out | ios::app);
+						fout << airlineAccount.getClientNum() << " " << airlineDatabase.getSeatdata(airlineAccount.getClientNum()) << endl;
+						fout.close();
+						//예약정보(좌석의 예약횟수) 저장
+						fout.open("airlineBook_bookCountSet.txt", ios::out | ios::app);
+						fout << arrivalDate << " " << arrivalAirport << " " << departureAirport << " " << arrivalTime << " " << seatNum << " " << schedule[arrivalDate - 1][arrivalAirport - 1][departureAirport - 1][arrivalTime - 1].getBookCount(seatNum) << endl;
+						fout.close();
 						break; // 빈자리에 예약하면 break
 					}
 				}
@@ -353,6 +405,83 @@ void AirlineBook::book() {
 }
 
 void AirlineBook::login() {
+	if (airlineAccount.getClientNum() == -1) {
+		//리로드
+		//idset에 저장된 id 벡터 셋으로 가져오기
+		fin.open("airlineAccount_idSet.txt", ios::in | ios::out | ios::app);
+		while (!fin.eof()) {
+			getline(fin, id);
+			airlineAccount.pushId(id);
+			airlineDatabase.save();
+		}
+		fin.close();
+		
+		//passwordset에 저장된 password 벡터 셋으로 가져오기
+		fin.open("airlineAccount_passwordSet.txt", ios::in | ios::out | ios::app);
+		while (!fin.eof()) {
+			getline(fin, password);
+			airlineAccount.pushPassword(password);
+		}
+		fin.close();
+		
+		//nameset에 저장된 name 벡터 셋으로 가져오기
+		fin.open("airlineAccount_nameSet.txt", ios::in | ios::out | ios::app);
+		while (!fin.eof()) {
+			getline(fin, name);
+			airlineAccount.pushName(name);
+		}
+		fin.close();
+		
+		//정보 불러오기
+		fin.open("airlineBook_nameSet.txt", ios::in | ios::out | ios::app);
+		while (!fin.eof()) {
+			getline(fin, bookInformation);
+			istringstream ss(bookInformation);
+			string strBuf;
+			stringSet.clear();
+			while (getline(ss, strBuf, ' ')) {
+				stringSet.push_back(strBuf);
+			}
+			if (bookInformation != "") {
+				schedule[stoi(stringSet[0]) - 1][stoi(stringSet[1]) - 1][stoi(stringSet[2]) - 1][stoi(stringSet[3]) - 1].setBookReload(stoi(stringSet[4]), stringSet[5]);
+			}
+			
+		}
+		fin.close();
+
+		//정보 불러오기
+		fin.open("airlineBook_bookCountSet.txt", ios::in | ios::out | ios::app);
+		while (!fin.eof()) {
+			getline(fin, bookInformation);
+			istringstream ss(bookInformation);
+			string strBuf;
+			stringSet.clear();
+			while (getline(ss, strBuf, ' ')) {
+				stringSet.push_back(strBuf);
+			}
+			if (bookInformation != "") {
+				schedule[stoi(stringSet[0]) - 1][stoi(stringSet[1]) - 1][stoi(stringSet[2]) - 1][stoi(stringSet[3]) - 1].setBookCount(stoi(stringSet[4]), stoi(stringSet[5]));
+			}
+			
+		}
+		fin.close();
+		//예약자의 예약횟수 정보 불러오기
+		fin.open("airlineBook_seatDataSet.txt", ios::in | ios::out | ios::app);
+		while (!fin.eof()) {
+			getline(fin, seatData);
+			istringstream ss(seatData);
+			string strBuf;
+			stringSet.clear();
+			while (getline(ss, strBuf, ' ')) {
+				stringSet.push_back(strBuf);
+			}
+			if (seatData != "") {
+				airlineDatabase.setSeatdata(stoi(stringSet[1]), stoi(stringSet[0]));
+			}
+		}
+		fin.close();
+
+	}
 	while (1) {
 		loginmenu = Console::loginMenu();
 		if (loginmenu == 1) { // 로그인 선택
@@ -369,6 +498,19 @@ void AirlineBook::login() {
 		}
 		else if (loginmenu == 2) { // 회원가입 선택
 			airlineAccount.makeAccount();
+			//id 파일에저장
+			fout.open("airlineAccount_idSet.txt", ios::out | ios::app);
+			fout << airlineAccount.getId() << endl;
+			fout.close();
+			//password 파일에 저장
+			fout.open("airlineAccount_passwordSet.txt", ios::out | ios::app);
+			fout << airlineAccount.getPassword() << endl;
+			fout.close();
+			//name 파일에 저장
+			fout.open("airlineAccount_nameSet.txt", ios::out | ios::app);
+			fout << airlineAccount.getName() << endl;
+			fout.close();
+
 			airlineDatabase.save(); // database에 예약 횟수 세이브
 			cout << "회원가입이 완료되었습니다.\n로그인하고 메뉴를 선택해주세요.\n";
 		}

@@ -64,9 +64,24 @@ void Schedule::addBookCount(int seatNum)
 	seat[seatNum - 1].countUp();
 }
 
+int Schedule::getBookCount(int seatNum)
+{
+	return seat[seatNum - 1].showCount();
+}
+
+void Schedule::setBookCount(int seatNum, int bookCount)
+{
+	seat[seatNum - 1].setCount(bookCount);
+}
+
 void Schedule::cancelBookCount(int seatNum)
 {
 	seat[seatNum - 1].countDown();
+}
+
+void Schedule::setBookReload(int seatNum, string name)
+{
+	seat[seatNum - 1].setName(name);
 }
 
 bool Schedule::setBook(int seatNum, string name) {

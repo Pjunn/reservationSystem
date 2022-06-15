@@ -4,6 +4,7 @@
 
 #include <iostream>
 #include <vector>
+#include <fstream>
 
 using namespace std;
 
@@ -21,12 +22,17 @@ class Account {
 	vector<vector<int>> bookCountSet;
 public:
 	Account();
-	Account(string id, string password);
 	void makeAccount();
 	void setId(string id);
 	void setPassword(string password);
+	void setName(string name);
+	void pushId(string id);
+	void pushPassword(string password);
+	void pushName(string name);
 	bool isregistered();
 	string getName();
+	string getId();
+	string getPassword();
 	void addMileage();
 	void minusMileage();
 	int getMileage();
@@ -34,5 +40,6 @@ public:
 	void cancelBookCount(int date);
 	int getBookCount(int date);
 	int getClientNum();
+	void setBookCount(int date, int bookCount, int clientNumber);
 };
 #endif // !ACCOUNT_H

@@ -31,3 +31,8 @@ void Seat::countDown(){
 int Seat::showCount() {
 	return bookedCount;
 }
+
+void Seat::setCount(int count)
+{
+	bookedCount = count;
+}

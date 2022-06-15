@@ -25,6 +25,9 @@ public:
 	void showScheduleNone();
 	void showBookCount(int seatNum);
 	void addBookCount(int seatNum);
+	int getBookCount(int seatNum);
+	void setBookCount(int seatNum, int bookCount);
 	void cancelBookCount(int seatNum);
+	void setBookReload(int seatNum, string name);
 };
 #endif // !SCHEDULE_H

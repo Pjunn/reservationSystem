@@ -18,7 +18,7 @@ void BookInterface::start() {
 		service = Console::select_service();
 		switch (service) {
 		case 1: { // 비행기
-			//대충 비행기예약 객체 시작
+			//비행기예약 객체 시작
 			cout << "\n***** 비행기 예약 시스템에 오신것을 환영합니다 *****\n\n";
 			airlineBook.login();
 			airlineBook.book();
@@ -26,14 +26,14 @@ void BookInterface::start() {
 		}
 		case 2: { // 식당
 			cout << "\n***** 식당 예약 시스템에 오신것을 환영합니다 *****\n\n";
-			//대충 식당예약 객체 시작
+			//식당예약 객체 시작
 			restaurantBook.login();
 			restaurantBook.book();
 			break;
 		}
 		case 3: { // 독서실
 			cout << "\n***** 독서실 예약 시스템에 오신것을 환영합니다 *****\n\n";
-			//대충 독서실예약 객체 시작
+			//독서실예약 객체 시작
 			readingRoomBook.login();
 			readingRoomBook.book();
 			break;

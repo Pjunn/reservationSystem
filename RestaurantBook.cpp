@@ -15,7 +15,10 @@ RestaurantBook::RestaurantBook() {
 }
 
 RestaurantBook::~RestaurantBook() {
-	//sale도 delete해야함
+	for (int i = 0; i < 7; i++) {
+		delete[] sale[i];
+	}
+	delete[] sale;
 	delete[] walkinTable;
 }
 
@@ -114,6 +117,19 @@ void RestaurantBook::book() {
 							if (sale[date - 1][whenEat - 1].setBook(tableNum, restaurantAccount.getName())) {
 								restaurantDatabase.addTabledata(restaurantAccount.getClientNum());
 								sale[date - 1][whenEat - 1].addBookCount(tableNum);
+
+								//예약정보(이름) 저장
+								fout.open("restaurantBook_nameSet.txt", ios::out | ios::app);
+								fout << date << " " << whenEat << " " << tableNum << " " << restaurantAccount.getName() << endl;
+								fout.close();
+								//예약자의 예약횟수 정보 저장
+								fout.open("restaurantBook_tableDataSet.txt", ios::out | ios::app);
+								fout << restaurantAccount.getClientNum() << " " << restaurantDatabase.getTabledata(restaurantAccount.getClientNum()) << endl;
+								fout.close();
+								//예약정보(좌석의 예약횟수) 저장
+								fout.open("restaurantBook_bookCountSet.txt", ios::out | ios::app);
+								fout << date << " " << whenEat << " " << tableNum << " " << sale[date - 1][whenEat - 1].getBookCount(tableNum) << endl;
+								fout.close();
 								break;
 							}
 						}
@@ -203,6 +219,82 @@ void RestaurantBook::book() {
 }
 
 void RestaurantBook::login() {
+	if (restaurantAccount.getClientNum() == -1) {
+		//리로드
+		//idset에 저장된 id 벡터 셋으로 가져오기
+		fin.open("restaurantAccount_idSet.txt", ios::in | ios::out | ios::app);
+		while (!fin.eof()) {
+			getline(fin, id);
+			restaurantAccount.pushId(id);
+			restaurantDatabase.save();
+		}
+		fin.close();
+
+		//passwordset에 저장된 password 벡터 셋으로 가져오기
+		fin.open("restaurantAccount_passwordSet.txt", ios::in | ios::out | ios::app);
+		while (!fin.eof()) {
+			getline(fin, password);
+			restaurantAccount.pushPassword(password);
+		}
+		fin.close();
+
+		//nameset에 저장된 name 벡터 셋으로 가져오기
+		fin.open("restaurantAccount_nameSet.txt", ios::in | ios::out | ios::app);
+		while (!fin.eof()) {
+			getline(fin, name);
+			restaurantAccount.pushName(name);
+		}
+		fin.close();
+
+		//정보 불러오기
+		fin.open("restaurantBook_nameSet.txt", ios::in | ios::out | ios::app);
+		while (!fin.eof()) {
+			getline(fin, bookInformation);
+			istringstream ss(bookInformation);
+			string strBuf;
+			stringSet.clear();
+			while (getline(ss, strBuf, ' ')) {
+				stringSet.push_back(strBuf);
+			}
+			if (bookInformation != "") {
+				sale[stoi(stringSet[0]) - 1][stoi(stringSet[1]) - 1].setBookReload(stoi(stringSet[2]), stringSet[3]);
+			}
+
+		}
+		fin.close();
+
+		//정보 불러오기
+		fin.open("restaurantBook_bookCountSet.txt", ios::in | ios::out | ios::app);
+		while (!fin.eof()) {
+			getline(fin, bookInformation);
+			istringstream ss(bookInformation);
+			string strBuf;
+			stringSet.clear();
+			while (getline(ss, strBuf, ' ')) {
+				stringSet.push_back(strBuf);
+			}
+			if (bookInformation != "") {
+				sale[stoi(stringSet[0]) - 1][stoi(stringSet[1]) - 1].setBookCount(stoi(stringSet[2]), stoi(stringSet[3]));
+			}
+
+		}
+		fin.close();
+		//예약자의 예약횟수 정보 불러오기
+		fin.open("restaurantBook_tableDataSet.txt", ios::in | ios::out | ios::app);
+		while (!fin.eof()) {
+			getline(fin, tableData);
+			istringstream ss(tableData);
+			string strBuf;
+			stringSet.clear();
+			while (getline(ss, strBuf, ' ')) {
+				stringSet.push_back(strBuf);
+			}
+			if (tableData != "") {
+				restaurantDatabase.setTabledata(stoi(stringSet[1]), stoi(stringSet[0]));
+			}
+		}
+		fin.close();
+	}
 	while (1) {
 		loginmenu = Console::loginMenu();
 		if (loginmenu == 1) { // 로그인 선택
@@ -219,6 +311,19 @@ void RestaurantBook::login() {
 		}
 		else if (loginmenu == 2) { // 회원가입 선택
 			restaurantAccount.makeAccount();
+			//id 파일에저장
+			fout.open("restaurantAccount_idSet.txt", ios::out | ios::app);
+			fout << restaurantAccount.getId() << endl;
+			fout.close();
+			//password 파일에 저장
+			fout.open("restaurantAccount_passwordSet.txt", ios::out | ios::app);
+			fout << restaurantAccount.getPassword() << endl;
+			fout.close();
+			//name 파일에 저장
+			fout.open("restaurantAccount_nameSet.txt", ios::out | ios::app);
+			fout << restaurantAccount.getName() << endl;
+			fout.close();
+
 			restaurantDatabase.save(); // database에 예약 횟수 세이브
 			cout << "회원가입이 완료되었습니다.\n로그인하고 메뉴를 선택해주세요.\n";
 		}

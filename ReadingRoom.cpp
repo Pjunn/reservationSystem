@@ -11,7 +11,10 @@ ReadingRoom::ReadingRoom(){
 }
 
 ReadingRoom::~ReadingRoom(){
-	//seat delete
+	for (int i = 0; i < 15; i++) {
+		delete[] seat[i];
+	}
+	delete[] seat;
 }
 
 void ReadingRoom::setreadingRoomName(int date, string readingRoomName){
@@ -109,5 +112,20 @@ void ReadingRoom::addBookCount(int seatRow, int seatColumm)
 void ReadingRoom::cancelBookCount(int seatRow, int seatColumm)
 {
 	seat[seatRow - 1][seatColumm - 1].countDown();
+}
+
+int ReadingRoom::getBookCount(int seatRow, int seatColumm)
+{
+	return seat[seatRow - 1][seatColumm - 1].showCount();
+}
+
+void ReadingRoom::setBookReload(int seatRow, int seatColumm, string name)
+{
+	seat[seatRow - 1][seatColumm - 1].setName(name);
+}
+
+void ReadingRoom::setBookCount(int seatRow, int seatColumm, int bookCount)
+{
+	seat[seatRow - 1][seatColumm - 1].setCount(bookCount);
 }
 

@@ -4,6 +4,10 @@
 
 #include "BookingSystem.h"
 #include <iostream>
+#include <fstream>
+#include <string>
+#include <vector>
+#include <sstream>
 #include "Account.h"
 #include "Console.h"
 #include "Schedule.h"
@@ -15,6 +19,9 @@ class AirlineBook : public BookingSystem {
 	Account airlineAccount;
 	Schedule**** schedule;
 	AirlineDatabase airlineDatabase;
+	ofstream fout;
+	ifstream fin;
+	vector<string> stringSet;
 	int menu;
 	int departureTime;
 	int arrivalTime;
@@ -22,6 +29,8 @@ class AirlineBook : public BookingSystem {
 	string id;
 	string password;
 	string name;
+	string bookInformation;
+	string seatData;
 	int departureAirport;
 	int arrivalAirport;
 	int wayType;
@@ -35,7 +44,6 @@ class AirlineBook : public BookingSystem {
 	int economyTicketPrice;
 	int businessTicketPrice;
 	int information;
-		
 		
 public:
 	AirlineBook();

@@ -16,6 +16,7 @@ public:
 	void countUp();
 	void countDown();
 	int showCount();
+	void setCount(int count);
 };
 
 #endif // !TABLE_H

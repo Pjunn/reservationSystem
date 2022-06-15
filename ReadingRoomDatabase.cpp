@@ -39,6 +39,17 @@ int ReadingRoomDatabase::getSexdata(int sex)
 	return sexdataSet[sex - 1];
 }
 
+void ReadingRoomDatabase::setSexdata(int manCount, int womanCount)
+{
+	sexdataSet[0] = manCount;
+	sexdataSet[1] = womanCount;
+}
+
+void ReadingRoomDatabase::setSeatdata(int seatData, int clientNum)
+{
+	seatdataSet[clientNum] = seatData;
+}
+
 void ReadingRoomDatabase::save()
 {
 	seatdataSet.push_back(seatData);

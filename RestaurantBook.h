@@ -4,6 +4,9 @@
 
 #include "BookingSystem.h"
 #include <iostream>
+#include <fstream>
+#include <string>
+#include <sstream>
 #include "Account.h"
 #include "Console.h"
 #include "Sale.h"
@@ -17,7 +20,15 @@ class RestaurantBook : public BookingSystem {
 	Sale** sale;
 	Table* walkinTable;
 	queue<string> waitingQueue;
+	vector<string> stringSet;
 	RestaurantDatabase restaurantDatabase;
+	ofstream fout;
+	ifstream fin;
+	string id;
+	string password;
+	string name;
+	string bookInformation;
+	string tableData;
 	int loginmenu;
 	int menu;
 	int date;

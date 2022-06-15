@@ -20,6 +20,13 @@ int AirlineDatabase::getSeatdata(int clientNum)
 	return seatdataSet[clientNum];
 }
 
+void AirlineDatabase::setSeatdata(int seatData, int clientNum)
+{
+	seatdataSet[clientNum] = seatData;
+}
+
+
+
 void AirlineDatabase::save() {
 	seatdataSet.push_back(seatData);
 }

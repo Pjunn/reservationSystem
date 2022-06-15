@@ -15,6 +15,7 @@ public:
 	void addTabledata(int clientNum);
 	void cancelTabledata(int clientNum);
 	int getTabledata(int clientNum);
+	void setTabledata(int tableData, int clientNum);
 	void save();
 };
 #endif // !RESTAURANTDATABASE_H

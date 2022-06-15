@@ -23,5 +23,8 @@ public:
 	void showBookCount(int seatRow, int seatColumm);
 	void addBookCount(int seatRow, int seatColumm);
 	void cancelBookCount(int seatRow, int seatColumm);
+	int getBookCount(int seatRow, int seatColumm);
+	void setBookReload(int seatRow, int seatColumm, string name);
+	void setBookCount(int seatRow, int seatColumm, int bookCount);
 };
 #endif // !READINGROOM_H

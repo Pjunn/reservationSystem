@@ -73,3 +73,18 @@ void Sale::cancelBookCount(int tableNum)
 {
 	table[tableNum - 1].countDown();
 }
+
+int Sale::getBookCount(int tableNum)
+{
+	return table[tableNum - 1].showCount();
+}
+
+void Sale::setBookCount(int tableNum, int bookCount)
+{
+	table[tableNum - 1].setCount(bookCount);
+}
+
+void Sale::setBookReload(int tableNum, string name)
+{
+	table[tableNum - 1].setName(name);
+}

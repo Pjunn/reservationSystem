@@ -31,3 +31,9 @@ void Table::countDown(){
 int Table::showCount(){
 	return bookedCount;
 }
+
+void Table::setCount(int count)
+{
+	bookedCount = count;
+}
+

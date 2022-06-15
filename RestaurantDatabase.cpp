@@ -22,6 +22,11 @@ int RestaurantDatabase::getTabledata(int clientNum)
 	return tabledataSet[clientNum];
 }
 
+void RestaurantDatabase::setTabledata(int tableData, int clientNum)
+{
+	tabledataSet[clientNum] = tableData;
+}
+
 void RestaurantDatabase::save()
 {
 	tabledataSet.push_back(tableData);

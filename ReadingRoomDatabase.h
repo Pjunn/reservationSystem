@@ -19,7 +19,8 @@ public:
 	void addSexdata(int sex);
 	void cancelSexdata(int sex);
 	int getSexdata(int sex);
-
+	void setSexdata(int manCount, int womanCount);
+	void setSeatdata(int seatData, int clientNum);
 	void save();
 };
 #endif // !READINGROOMDATABASE_H

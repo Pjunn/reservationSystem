@@ -4,6 +4,8 @@
 
 #include "BookingSystem.h"
 #include <iostream>
+#include <fstream>
+#include <sstream>
 #include "Account.h"
 #include "Console.h"
 #include "ReadingRoom.h"
@@ -15,6 +17,12 @@ class ReadingRoomBook : public BookingSystem {
 	Account readingRoomAccount;
 	ReadingRoom** readingRoom;
 	ReadingRoomDatabase readingRoomDatabase;
+	ofstream fout;
+	ifstream fin;
+	string id;
+	vector<string> stringSet;
+	string password;
+	string bookInformation;
 	int loginmenu;
 	int menu;
 	int date;
